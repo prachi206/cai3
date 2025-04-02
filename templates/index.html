@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Recorder and Sentiment Analysis</title>
+</head>
+<body>
+    <table style="width:100%">
+        <tr>
+            <td style="width:50%">
+                <h2>Record and Upload Audio</h2>
+                <button id="record">Record</button>
+                <button id="stop">Stop</button>
+                <span id="timer">00:00</span>
+                <audio id="audio"></audio>
+                <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="audio_data" id="audioData">
+                </form>
+                <script src="{{ url_for('serve_script') }}"></script>
+                <hr>
+                <h2>Recorded Files</h2>
+                <ul>
+                    {% for file in speak_files %}
+                    <li>
+                        <!-- Display audio file -->
+                        <audio controls>
+                            <source src="{{ url_for('speak_file', filename=file) }}">
+                            Your browser does not support the audio element.
+                        </audio><br>
+                        <!-- Display the corresponding text file for sentiment analysis or transcript -->
+                        <a href="{{ url_for('speak_file', filename=file[:-4] + '.txt') }}">{{ file[:-4] }}.txt</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
