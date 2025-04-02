@@ -76,7 +76,7 @@ def process_audio_with_gemini(file_path):
     
     model = genai.GenerativeModel("gemini-1.5-pro")
     response = model.generate_content([ 
-        "Transcribe this audio and analyze its sentiment, providing a score between -1 and 1:",
+        "Provide the Transcription of the audio ,providing a sentimental analysis score between -1 and 1:",
         {"mime_type": mime_type, "data": audio_data}
     ])
     return response.text if response else "No analysis available"
